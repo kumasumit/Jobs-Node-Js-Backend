@@ -8,6 +8,9 @@ import morgan from "morgan";
 // file imports - local imports
 import connectDB from "./config/db.js";
 
+// Routes imports
+import authRouter from "./routes/authRouter.js";
+
 
 
 // Initialize the express server
@@ -17,6 +20,9 @@ const app = express();
 app.use(express.json()); // this tells that in this app we are going to use json data
 app.use(cors()); // this tells that in this app we are going to use cors
 app.use(morgan('dev')); // this tells that in this app we are going to use morgan to log all the req and responses
+
+// Routes
+app.use('/api/v1/auth', authRouter);
 
 // env configuration
 dotenv.config(); // if .env file is not present in root folder, we can use path inside config to set the path variable.
