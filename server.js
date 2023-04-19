@@ -2,6 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import colors from "colors";
+import connectDB from "./config/db.js";
 
 
 
@@ -10,6 +11,9 @@ const app = express();
 
 // env configuration
 dotenv.config(); // if .env file is not present in root folder, we can use path inside config to set the path variable.
+
+// mongoDB connection
+connectDB();
 
 // routes
 app.get('/', (req, res) => {
