@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
+import JWT from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema(
   {
@@ -42,5 +43,15 @@ userSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+// Json Web Token
+// We dont use arrow function here,
+// Ask rahul why ???
+userSchema.methods.createSignedJwtToken = function () {
+  return JWT.sign({ userId: this._id }, process.env.JWT_SECRET, {
+    // This token will expire in 1 day
+    expiresIn: "1d",
+  });
+};
 const User = mongoose.model("users", userSchema); // users is the collection name in MongoDB.
 export default User;
