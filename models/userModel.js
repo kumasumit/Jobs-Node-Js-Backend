@@ -43,7 +43,10 @@ userSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
-
+// Compare the password entered by the user with the password in the database
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 // Json Web Token
 // We dont use arrow function here,
 // Ask rahul why ???
