@@ -10,8 +10,7 @@ import connectDB from "./config/db.js";
 
 // Routes imports
 import authRouter from "./routes/authRouter.js";
-
-
+import userRouter from "./routes/userRouter.js";
 
 // Initialize the express server
 const app = express();
@@ -19,11 +18,11 @@ const app = express();
 // Middlewares
 app.use(express.json()); // this tells that in this app we are going to use json data
 app.use(cors()); // this tells that in this app we are going to use cors
-app.use(morgan('dev')); // this tells that in this app we are going to use morgan to log all the req and responses
+app.use(morgan("dev")); // this tells that in this app we are going to use morgan to log all the req and responses
 
 // Routes
-app.use('/api/v1/auth', authRouter);
-
+app.use("/api/v1/auth", authRouter);
+app.user("/api/v1/users", userRouter);
 // env configuration
 dotenv.config(); // if .env file is not present in root folder, we can use path inside config to set the path variable.
 
@@ -31,8 +30,8 @@ dotenv.config(); // if .env file is not present in root folder, we can use path 
 connectDB();
 
 // routes
-app.get('/', (req, res) => {
-    res.send('<h1>Welcome to the job portal</h1>');
+app.get("/", (req, res) => {
+  res.send("<h1>Welcome to the job portal</h1>");
 });
 
 // assigning port from env variable
@@ -40,6 +39,8 @@ const PORT = process.env.PORT || 8080;
 
 // listen on port 8080
 app.listen(PORT, () => {
-    console.log(`Server is running in ${process.env.DEV_MODE} on port ${PORT}`.bgCyan.white);
-    // Here bgCyan is background color and white is text color
+  console.log(
+    `Server is running in ${process.env.DEV_MODE} on port ${PORT}`.bgCyan.white
+  );
+  // Here bgCyan is background color and white is text color
 });

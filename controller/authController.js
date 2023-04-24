@@ -1,3 +1,4 @@
+import User from "../models/userModel.js";
 // A controller to handle all the authentication related routes
 // 1. An action to handle the register route.
 const registerActionController = async (req, res) => {
